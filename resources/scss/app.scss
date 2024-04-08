@@ -1,0 +1,17 @@
+@import "~bootstrap/scss/bootstrap";
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    main {
+        flex-grow: 1;
+    }
+}
+
+.modal-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
