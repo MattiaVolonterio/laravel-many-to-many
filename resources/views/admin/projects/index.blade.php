@@ -8,12 +8,13 @@
 
         <a href="{{ route('admin.projects.create') }}" class="btn btn-primary mb-3">Crea Nuovo Progetto</a>
 
-        <table class="table">
+        <table class="table align-middle">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome del progetto</th>
                     <th scope="col">Tipologia</th>
+                    <th scope="col">Tecnologie</th>
                     <th scope="col">Autore</th>
                     <th scope="col">Link</th>
                     <th scope="col"></th>
@@ -25,6 +26,13 @@
                         <th scope="row">{{ $project->id }}</th>
                         <td>{{ $project->title }}</td>
                         <td>{!! $project->type?->getBadge() !!}</td>
+                        {{-- <td>{{ $project->get_technologies() }}</td> --}}
+                        <td>
+                            @foreach ($project->technologies as $technology)
+                                {!! $technology->getBadge() !!}
+                                <br>
+                            @endforeach
+                        </td>
                         <td>{{ $project->author }}</td>
                         <td><a href="{{ $project->project_link }}" target="_blank">Vai alla pagina del progetto</a></td>
                         <td>
