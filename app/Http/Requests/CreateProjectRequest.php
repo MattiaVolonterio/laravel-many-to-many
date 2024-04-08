@@ -28,7 +28,8 @@ class CreateProjectRequest extends FormRequest
             'author' => 'required|string|max:100',
             'description' => 'string|nullable',
             'project_link' => 'required|url',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'required|exists:technologies,id'
         ];
     }
 
@@ -48,7 +49,8 @@ class CreateProjectRequest extends FormRequest
             'author.max' => 'La lunghezza massima è di 100 caratteri',
             'description.string' => "La descrizione dev'essere un testo",
             'project_link.required' => "Il link non può essere vuoto",
-            'project_link.url' => "Il link dev'essere un URL valido"
+            'project_link.url' => "Il link dev'essere un URL valido",
+            'technologies.required' => 'Selezionare almeno una tecnologia'
         ];
     }
 }
