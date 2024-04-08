@@ -26,6 +26,13 @@
                                 'active' => Route::currentRouteName() == 'admin.types.index',
                             ]) href="{{ route('admin.types.index') }}">Tipologia</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a @class([
+                                'nav-link',
+                                'active' => Route::currentRouteName() == 'admin.technologies.index',
+                            ]) href="{{ route('admin.technologies.index') }}">Tecnologie</a>
+                        </li>
                     @endauth
 
                 </ul>

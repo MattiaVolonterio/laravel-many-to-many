@@ -18,6 +18,11 @@
 
         <span class="mt-4 fs-5 fw-bold d-block">Tipologia: {!! $project->type->getBadge() !!}</span>
 
+        <span class="mt-4 fs-5 fw-bold d-block">Tecnologie: @foreach ($project->technologies as $technology)
+                {!! $technology->getBadge() !!}
+            @endforeach
+        </span>
+
         <span class="mt-4 fs-5 fw-bold d-block">Descrizione:</span>
         <p>{{ $project->description }}</p>
 

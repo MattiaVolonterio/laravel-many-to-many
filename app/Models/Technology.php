@@ -18,4 +18,9 @@ class Technology extends Model
     {
         return "<span class='badge' style='background-color : {$this->color}'> $this->type </span>";
     }
+
+    protected $fillable = [
+        'type',
+        'color'
+    ];
 }
