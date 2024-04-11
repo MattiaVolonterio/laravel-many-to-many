@@ -1,12 +1,12 @@
 <x-mail::message>
-    # Ciao {{ $username }}
+# Ciao {{ $username }}
 
-    Il tuo nuovo progetto "{{ $project_title }}"è stato creato correttamente
+Il tuo nuovo progetto "{{ $project_title }}"è stato creato correttamente
 
-    <x-mail::button :url="$project_url">
-        Vai al progetto
-    </x-mail::button>
+<x-mail::button :url="$project_url">
+Vai al progetto
+</x-mail::button>
 
-    Grazie,<br>
-    {{ config('app.name') }}
+Grazie,<br>
+{{ config('app.name') }}
 </x-mail::message>
