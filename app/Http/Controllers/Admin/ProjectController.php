@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProjectRequest;
 use App\Http\Requests\EditProjectRequest;
+use App\Mail\CreateProjectMail;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
@@ -49,11 +52,18 @@ class ProjectController extends Controller
         $data = $request->all();
         $new_project = new Project;
         $new_project->fill($data);
-        $img_path = Storage::put('uploads/projects', $data['project_image']);
-        $new_project->project_image = $img_path;
+
+        if (Arr::exists($data, 'project_image')) {
+            $img_path = Storage::put('uploads/projects', $data['project_image']);
+            $new_project->project_image = $img_path;
+        }
+
+
         $new_project->save();
 
         $new_project->technologies()->attach($data['technologies']);
+
+        Mail::to('mailprova@mail.com')->send(new CreateProjectMail(Auth::user(), $new_project));
 
         return redirect()->route('admin.projects.show', $new_project)->with('message', 'Progetto creato con successo');
     }
