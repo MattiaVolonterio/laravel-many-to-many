@@ -13,21 +13,36 @@
             Elimina
         </button>
 
-        <h1 class="mt-3 fw-bold">{{ $project->title }}</h1>
-        <span class="d-inline-block me-2">Created By</span><code class="d-inline-block fs-5">{{ $project->author }}</code>
+        <div class="row">
+            <div class="col-6">
+                <h1 class="mt-3 fw-bold">{{ $project->title }}</h1>
+                <span class="d-inline-block me-2">Created By</span><code
+                    class="d-inline-block fs-5">{{ $project->author }}</code>
 
-        <span class="mt-4 fs-5 fw-bold d-block">Tipologia: {!! $project->type->getBadge() !!}</span>
+                <span class="mt-4 fs-5 fw-bold d-block">Tipologia: {!! $project->type->getBadge() !!}</span>
 
-        <span class="mt-4 fs-5 fw-bold d-block">Tecnologie: @foreach ($project->technologies as $technology)
-                {!! $technology->getBadge() !!}
-            @endforeach
-        </span>
+                <span class="mt-4 fs-5 fw-bold d-block">Tecnologie: @foreach ($project->technologies as $technology)
+                        {!! $technology->getBadge() !!}
+                    @endforeach
+                </span>
 
-        <span class="mt-4 fs-5 fw-bold d-block">Descrizione:</span>
-        <p>{{ $project->description }}</p>
+                <span class="mt-4 fs-5 fw-bold d-block">Descrizione:</span>
+                <p>{{ $project->description }}</p>
 
-        <span class="mt-4 fs-5 fw-bold">Link alla pagina github:</span>
-        <a href="{{ $project->project_link }}" target="_blank"><i class="fa-brands fa-github fa-xl"></i></a>
+                <span class="mt-4 fs-5 fw-bold">Link alla pagina github:</span>
+                <a href="{{ $project->project_link }}" target="_blank"><i class="fa-brands fa-github fa-xl"></i></a>
+            </div>
+
+            @if (!empty($project->project_image))
+                <div class="col-6">
+                    <img src="{{ asset('storage/' . $project->project_image) }}" alt="{{ $project->title }}">
+                </div>
+            @endif
+
+
+        </div>
+
+
     </div>
 @endsection
 

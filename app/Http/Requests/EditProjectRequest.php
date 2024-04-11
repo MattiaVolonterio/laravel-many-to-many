@@ -29,7 +29,8 @@ class EditProjectRequest extends FormRequest
             'description' => 'string|nullable',
             'project_link' => 'required|url',
             'type_id' => 'nullable|exists:types,id',
-            'technologies' => 'exists:technologies,id'
+            'technologies' => 'exists:technologies,id',
+            'project_image' => 'nullable|image'
         ];
     }
 
@@ -50,6 +51,7 @@ class EditProjectRequest extends FormRequest
             'description.string' => "La descrizione dev'essere un testo",
             'project_link.required' => "Il link non può essere vuoto",
             'project_link.url' => "Il link dev'essere un URL valido",
+            'project_image.image' => 'Il formato del file inserito non è valido'
         ];
     }
 }

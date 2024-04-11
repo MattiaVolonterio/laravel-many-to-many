@@ -8,7 +8,7 @@
 
         <h1 class="mb-3">Inserisci un nuovo progetto</h1>
 
-        <form action="{{ route('admin.projects.store') }}" method="POST">
+        <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="row g-3">
@@ -54,6 +54,15 @@
                                 @endforeach
                             </select>
                             @error('type_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-12">
+                            <label for="project_image" class="form-label">Immagine</label>
+                            <input type="file" name="project_image" id="project_image"
+                                class="form-control @error('project_image') is-invalid @enderror">
+                            @error('project_image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

@@ -36,6 +36,8 @@ Route::middleware('auth')
     Route::resource('types', TypeController::class);
 
     Route::resource('technologies', TechnologyController::class);
+
+    Route::delete('/projects/{project}/destroyImage', [ProjectController::class, 'destroyImage'])->name('projects.destroyImage');
   });
 
 require __DIR__ . '/auth.php';

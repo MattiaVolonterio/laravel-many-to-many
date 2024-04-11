@@ -9,7 +9,7 @@
 
         <h1 class="mb-3">Modifica {{ $project->title }}</h1>
 
-        <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+        <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             @method('PATCH')
@@ -64,6 +64,27 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
+                        <div class="col-12">
+                            <label for="project_image" class="form-label">Immagine</label>
+                            <input type="file" name="project_image" id="project_image"
+                                class="form-control @error('project_image') is-invalid @enderror">
+                            @error('project_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+
+                            @if (!empty($project->project_image))
+                                <div class="d-flex justify-content-center">
+                                    <div class="project-image-container">
+                                        <img src="{{ asset('storage/' . $project->project_image) }}" alt="image"
+                                            class="preview-project-image">
+
+                                        <div class="delete-project-image">X</div>
+
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
 
@@ -102,5 +123,22 @@
                 </div>
             </div>
         </form>
+
+        <form action="{{ route('admin.projects.destroyImage', $project) }}" class="d-none" method="POST"
+            id="delete-image-form">
+            @csrf
+            @method('DELETE')
+        </form>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        const deleteImageButton = document.querySelector('.delete-project-image');
+        const deleteImageForm = document.querySelector('#delete-image-form');
+
+        deleteImageButton.addEventListener('click', () => {
+            deleteImageForm.submit();
+        })
+    </script>
 @endsection

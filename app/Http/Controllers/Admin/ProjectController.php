@@ -10,6 +10,7 @@ use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -48,6 +49,8 @@ class ProjectController extends Controller
         $data = $request->all();
         $new_project = new Project;
         $new_project->fill($data);
+        $img_path = Storage::put('uploads/projects', $data['project_image']);
+        $new_project->project_image = $img_path;
         $new_project->save();
 
         $new_project->technologies()->attach($data['technologies']);
@@ -91,7 +94,18 @@ class ProjectController extends Controller
         $request->validated();
 
         $data = $request->all();
-        $project->update($data);
+        $project->fill($data);
+
+        if (Arr::exists($data, 'project_image')) {
+            if (!empty($project->project_image)) {
+                Storage::delete($project->project_image);
+            }
+
+            $img_path = Storage::put('uploads/projects', $data['project_image']);
+            $project->project_image = $img_path;
+        }
+
+        $project->save();
 
         if (Arr::exists($data, 'technologies')) {
             $project->technologies()->sync($data['technologies']);
@@ -112,5 +126,18 @@ class ProjectController extends Controller
     {
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', 'Progetto eliminato con successo');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Project  $project
+     */
+    public function destroyImage(Project $project)
+    {
+        Storage::delete($project->project_image);
+        $project->project_image = null;
+        $project->save();
+        return redirect()->back();
     }
 }

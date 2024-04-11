@@ -29,7 +29,8 @@ class CreateProjectRequest extends FormRequest
             'description' => 'string|nullable',
             'project_link' => 'required|url',
             'type_id' => 'nullable|exists:types,id',
-            'technologies' => 'required|exists:technologies,id'
+            'technologies' => 'required|exists:technologies,id',
+            'project_image' => 'nullable|image'
         ];
     }
 
@@ -50,7 +51,8 @@ class CreateProjectRequest extends FormRequest
             'description.string' => "La descrizione dev'essere un testo",
             'project_link.required' => "Il link non può essere vuoto",
             'project_link.url' => "Il link dev'essere un URL valido",
-            'technologies.required' => 'Selezionare almeno una tecnologia'
+            'technologies.required' => 'Selezionare almeno una tecnologia',
+            'project_image.image' => 'Il formato del file inserito non è valido'
         ];
     }
 }
